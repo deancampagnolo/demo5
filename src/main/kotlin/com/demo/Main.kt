@@ -3,14 +3,16 @@ package com.demo
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @SpringBootApplication
 @RestController
-open class Main {
-    @GetMapping("/")
-    public fun greet(): String {
-        return "Hello"
+@RequestMapping("api/v1/customers")
+open class Main(val customerRepository: CustomerRepository) {
+    @GetMapping
+    fun getCustomers(): List<Customer> {
+        return customerRepository.findAll()
     }
 
     companion object {
